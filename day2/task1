@@ -1,0 +1,18 @@
+create table Time_Table
+(
+day varchar(10) not null,
+sess number not null,
+subject varchar(20) not null,
+fac varchar(50) not null,
+room number not null,
+sem number not null
+);
+
+alter table time_table
+add constraint pkk primary key(day,sess,room);
+
+alter table time_table
+add unique(day,sess,sem);
+
+alter table time_table
+add unique(day,sess,fac);
