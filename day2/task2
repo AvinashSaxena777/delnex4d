@@ -1,0 +1,65 @@
+display current date and time
+SELECT TO_CHAR(CURRENT_DATE, 'DD-MON-YYYY HH:MI:SS') FROM dual;
+
+-> display current date
+ select sysdate from dual;
+
+-> display current date in DD/MM/YYYY format
+SELECT TO_CHAR(CURRENT_DATE, 'DD/MM/YYYY') FROM dual;
+
+->display current day as Tuesday
+SELECT TO_CHAR(sysdate,'Day')"Today" FROM dual;
+
+
+-> display date after 10 days from the current date
+select sysdate + 10 from dual;
+
+
+-> create table Employee with the following attributes and constraints
+create table Employee
+(
+EmpFName varchar(20),
+EmpMName varchar(20),
+EmpLastName varchar(20),
+EmpAge int check(EmpAge between 0 and 49),
+EmpCity varchar(20) check(upper(EmpCity) like 'B%'),
+EmpDesignation varchar(20) check(lower(EmpDesignation) like '%manager%'),
+EmpId varchar(5) check(EmpId like '_____'),
+empDOB Date,
+constraint pkk1 primary key(EmpId)
+);
+
+-> insert 5 employee details
+insert into Employee values('Ram','Chandra','Kumar', '24', 'Bangalore', 'Sales manager', 'emp01','14/Aug/1995');
+insert into Employee values('Raja','Singh','Shrinivas', '42', 'Bhopal', 'Regional manager', 'emp04','18/May/1977');
+insert into Employee values('Rama','Kumar','Shrinivas', '28', 'Bijapur', 'Store manager', 'emp08','04/Sep/1983');
+insert into Employee values('Ramanujan','Chandra','Shrinivasan', '36', 'Bijapur', 'Regional manager', 'emp06','12/Nov/1973');
+insert into Employee values('Ajav','kumar','Shrinivasan', '36', 'Bijapur', 'Regional manager', 'emp05','12/Dec/1973');
+
+commit;
+
+-> delete an employee
+delete from Employee where empid = 'emp08';
+
+-> delete all employees
+delete from employee;
+
+->get back all the employees deleted in previous delete
+rollback;
+
+-> display employee  name and dob in(DD-MM-YYYY) fromat
+select empfname, empdob from employee;
+
+-> display employee  name in following format  
+       Fname   Mname    lname
+Ex:  Sachin  Ramesh  Tendulkar
+should be displayed as  S.R.Tendulkar  
+select concat(concat(concat(substr(EmpFname,1,1),'.'),concat(substr(EmpMname,1,1),'.')), EmpLastname) "Name" from Employee;
+OR
+select substr(EmpFname,1,1)||'.'|| substr(EmpMname,1,1)||'.'||EmpLastname from Employee;
+
+
+
+
+
+
