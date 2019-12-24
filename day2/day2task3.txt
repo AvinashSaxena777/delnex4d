@@ -1,0 +1,26 @@
+client
+
+cname
+contact
+email
+
+client backup
+
+
+function_hall
+booking_date --> current date
+event_date ---> should be a future date
+
+
+
+create or replace trigger trgBackup
+after update
+on clients
+for each row
+begin
+update backup set cname = :new.cname, contact = :new.contact, email = :new.email
+where email = :old.email;
+end;
+/
+
+
