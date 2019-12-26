@@ -23,6 +23,14 @@ Q.2 function_hall
 booking_date --> current date
 event_date ---> should be a future date
 
+create table function_hall
+(
+booking_date date,
+event_date
+date
+);
+  
+  
 create or replace trigger trgd
 before insert on function_hall
 for each row
