@@ -1,17 +1,11 @@
-client
+
+Q.1 -client
 
 cname
 contact
 email
 
 client backup
-
-
-function_hall
-booking_date --> current date
-event_date ---> should be a future date
-
-
 
 create or replace trigger trgBackup
 after update
@@ -20,6 +14,23 @@ for each row
 begin
 update backup set cname = :new.cname, contact = :new.contact, email = :new.email
 where email = :old.email;
+end;
+/
+
+
+
+Q.2 function_hall
+booking_date --> current date
+event_date ---> should be a future date
+
+create or replace trigger trgd
+before insert on function_hall
+for each row
+begin
+if ((TO_date(sysdate, 'DD/Mon/YYYY')!= to_date(:new.booking_date, 'DD/MON/yyyy')) or (TO_date(sysdate, 'DD/Mon/YYYY') > to_date(:new.event_date, 'DD/MON/yyyy')))
+then
+raise_application_error(-20001,'-------Incorrect Date!----');
+end if;
 end;
 /
 
